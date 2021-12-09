@@ -5,6 +5,7 @@ import AppBar from "@material-ui/core/AppBar";
 
 import DashboardPage from "./pages/DashboardPage";
 import { Toolbar, Typography } from "@material-ui/core";
+import DetailsPage from "./pages/DetailsPage";
 
 class App extends Component<{}> {
   render() {
@@ -21,6 +22,7 @@ class App extends Component<{}> {
             </Toolbar>
           </AppBar>
           <Route exact path="/" component={DashboardPage} />
+          <Route path="/details/:id" component={DetailsPage} />
         </HashRouter>
       </ThemeProvider>
     );
