@@ -7,7 +7,7 @@ import {
   Button,
 } from "@material-ui/core";
 import { Component } from "react";
-import { RouteComponentProps, withRouter } from "react-router-dom";
+import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import DATABASE from "../db.json";
 import { Todo } from "../types";
 
@@ -66,6 +66,15 @@ class DetailsPage extends Component<
 
     return (
       <main className={classes.main}>
+        <Link
+          // Adding it here, since it was crashing in the styles object
+          style={{ position: "absolute" }}
+          className={classes.backButton}
+          to="/"
+        >
+          {" "}
+          {"< Go Back"}
+        </Link>
         <Typography variant="h4">Item id: {match.params.id}</Typography>
         <form className={classes.form} onSubmit={this.handleSubmit}>
           <TextField
@@ -96,6 +105,7 @@ const styles = (theme: Theme) => ({
     flexFlow: "column",
     alignItems: "center",
     maxWidth: "600px",
+    margin: "20px auto",
   },
   form: {
     display: "flex",
@@ -104,6 +114,10 @@ const styles = (theme: Theme) => ({
   },
   textField: {
     margin: "10px 0",
+  },
+  backButton: {
+    fontFamily: "Roboto",
+    left: "20px",
   },
 });
 
