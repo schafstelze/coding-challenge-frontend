@@ -1,5 +1,5 @@
 import {useState, useEffect, useCallback} from 'react';
-import {getItems} from '../api/items';
+import {getPaginatedItems} from '../api/items';
 import {Item} from '../types/items';
 
 const LIMIT = 3;
@@ -12,7 +12,7 @@ const useItems = () => {
         setPage(page_)
     }
     const fetchItems = useCallback(async () => {
-        const data = await getItems(page);
+        const {data, pagination} = await getPaginatedItems(page);
         setItems(data);
       }, [page])
 
@@ -20,9 +20,8 @@ const useItems = () => {
         fetchItems();
     }, [page, fetchItems])
 
-    const totalPages = Math.ceil(items.length/LIMIT)
 
-    return {items, page, totalPages, handlePageChange};
+    return {items, page, handlePageChange};
 }
 
 export default useItems;

@@ -2,17 +2,16 @@ import {FC} from 'react';
 import Pagination from '@material-ui/lab/Pagination';
 
 type PagintationComponentProps = {
-    totalPages: number;
     currentPage: number;
     handlePageChange: (page: number) => void;
 }
 
 const PagintationComponent: FC<PagintationComponentProps> = ({
-    totalPages, currentPage, handlePageChange
+    currentPage, handlePageChange
 }) => {
     return (
         <Pagination
-        count={totalPages}
+        // count={totalPages}
         onChange={(e, currentPage_: number) => {
             handlePageChange(currentPage_);
         }}
