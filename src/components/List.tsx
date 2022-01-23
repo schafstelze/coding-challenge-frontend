@@ -2,7 +2,6 @@ import { Component } from "react";
 import MuiList from "@material-ui/core/List";
 import ListItem from "./ListItem";
 import ListSubheader from "@material-ui/core/ListSubheader";
-//types
 import {Item} from '../types/items';
 class List extends Component<{ items: Item[] }> {
   render() {
