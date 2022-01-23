@@ -12,11 +12,13 @@ const useItems = () => {
         setPage(page_)
     }
     const fetchItems = useCallback(async () => {
-        const {data, linkHeaders} = await getPaginatedItems(page);
+        const {data, linkHeader} = await getPaginatedItems(page);
         setItems(data);
-        const paginationData = parseLinkHeader(linkHeaders);
-        const total = pageNumber(paginationData.last)
-        setTotalPages(total);
+        if (linkHeader) {
+            const paginationData = parseLinkHeader(linkHeader);
+            const total = pageNumber(paginationData.last)
+            setTotalPages(total);
+        }
       }, [page])
 
     useEffect(() => {
