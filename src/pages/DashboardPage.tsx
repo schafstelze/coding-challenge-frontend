@@ -1,36 +1,22 @@
-import { Component } from "react";
-import { RouteComponentProps, withRouter } from "react-router-dom";
-
+import { withRouter } from "react-router-dom";
+import useItems from '../hooks/useItems';
 import List from "../components/List";
+import Pagination from "../components/Pagination";
 
-import DATABASE from "../db.json"
 
-class DashboardPage extends Component<
-  RouteComponentProps & { items: any[] },
-  { items: any[] }
-> {
-  constructor(props: RouteComponentProps & { items: any[] }) {
-    super(props);
-    this.state = {
-      items: [],
-    };
-  }
-  async componentDidMount() {
-    const items = getItems();
-    this.setState({ items });
-  }
-  render() {
-    const { items } = this.state;
-    return (
-      <main>
-        <List items={items} />
-      </main>
-    );
-  }
+const DashboardPage = () => {
+
+  const {items, page, totalPages, handlePageChange} = useItems();
+  return (
+    <main>
+      <List items={items} />
+      <Pagination
+       totalPages={totalPages} 
+       currentPage={page} 
+       handlePageChange={handlePageChange} />
+    </main>
+  )
+
 }
-
-const getItems = () => {
-  return DATABASE.items
-};
 
 export default withRouter(DashboardPage);

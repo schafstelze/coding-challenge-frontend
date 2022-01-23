@@ -2,13 +2,14 @@ import { Component } from "react";
 import MuiList from "@material-ui/core/List";
 import ListItem from "./ListItem";
 import ListSubheader from "@material-ui/core/ListSubheader";
-
-class List extends Component<{ items: any[] }> {
+//types
+import {Item} from '../types/items';
+class List extends Component<{ items: Item[] }> {
   render() {
     const { items } = this.props;
     let itemList: JSX.Element[] = []
     items.forEach(item => {
-      itemList.push(<ListItem id={item.id} name={item.id} />)
+      itemList.push(<ListItem key={`list-item-${item.id}`} id={item.id} name={item.id} />)
     })
 
     return (

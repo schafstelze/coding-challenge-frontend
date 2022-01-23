@@ -7,13 +7,16 @@ import {
 } from "@material-ui/core";
 import { Component } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
-import DATABASE from "../db.json"
+import {getDetail} from '../api/details';
 
+type DetailsPageState = {
+  name: string; 
+  description: string
+}
 class DetailsPage extends Component<
   RouteComponentProps<{ id: string }> & WithStyles,
-  { name: string; description: string } // this can be removed to see how he will set this component state types
+  DetailsPageState
 > {
-
   constructor(props: any) {
     super(props);
     this.state = {
@@ -23,14 +26,8 @@ class DetailsPage extends Component<
   }
 
   async componentDidMount() {
-    for (let i = 0; i < DATABASE.details.length; i++) {
-      if (this.props.match.params.id === DATABASE.details[i].id) {
-        this.setState({
-          name: DATABASE.details[i].name,
-          description: DATABASE.details[i].description
-        })
-      }
-    }
+    const {name, description} = await getDetail(this.props.match.params.id);
+    this.setState({name, description})
   }
 
   handleNameChange = () => {
@@ -39,11 +36,10 @@ class DetailsPage extends Component<
     // docs (json-server): https://github.com/typicode/json-server
   };
   render() {
+
     const { match, classes } = this.props;
 
     return (
-      // this main should be minimally adjusted to have an acceptable UI
-      // card, centered, ...?
       <main className={classes.main}>
         <Typography variant="h4">Item id: {match.params.id}</Typography>
         <TextField
@@ -62,7 +58,7 @@ class DetailsPage extends Component<
 }
 
 const styles = (theme: Theme) => ({
-  main: {},
+  main: {padding: theme.spacing(4)},
 });
 
-export default withRouter(withStyles(styles)(DetailsPage));
+export default withStyles(styles)(withRouter(DetailsPage));
